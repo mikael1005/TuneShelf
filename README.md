@@ -109,7 +109,7 @@ CTRL + C
 ## 6. Autor
 
 **Mikael Gomes Rodrigues**  
-**Turma: 982100**
+**Tecnico em desenvolvimento de sistemas**
 
 ---
 
