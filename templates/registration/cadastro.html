@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Criar conta • TuneShelf{% endblock %}
+
+{% block content %}
+<section class="auth-card">
+    <div class="auth-icon">✨</div>
+    <h1>Criar sua conta</h1>
+    <p class="subtitle">Cadastre-se para começar seu catálogo musical.</p>
+
+    <form method="post" class="form-card">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+            <div class="form-error">{{ form.non_field_errors }}</div>
+        {% endif %}
+
+        <div class="field">
+            <label for="{{ form.username.id_for_label }}">Usuário</label>
+            {{ form.username }}
+            {% for error in form.username.errors %}<small class="error">{{ error }}</small>{% endfor %}
+        </div>
+
+        <div class="field">
+            <label for="{{ form.password1.id_for_label }}">Senha</label>
+            {{ form.password1 }}
+            {% for error in form.password1.errors %}<small class="error">{{ error }}</small>{% endfor %}
+        </div>
+
+        <div class="field">
+            <label for="{{ form.password2.id_for_label }}">Confirme a senha</label>
+            {{ form.password2 }}
+            {% for error in form.password2.errors %}<small class="error">{{ error }}</small>{% endfor %}
+        </div>
+
+        <button type="submit" class="primary-button full">Criar conta</button>
+    </form>
+
+    <p class="auth-footer">
+        Já possui uma conta?
+        <a href="{% url 'login' %}">Fazer login</a>
+    </p>
+</section>
+{% endblock %}

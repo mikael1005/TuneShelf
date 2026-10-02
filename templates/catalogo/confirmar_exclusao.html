@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Excluir música • TuneShelf{% endblock %}
+
+{% block content %}
+<section class="confirm-card">
+    <div class="auth-icon">🗑️</div>
+    <h1>Excluir música?</h1>
+    <p>Você está prestes a excluir <strong>{{ musica.titulo }}</strong>, de {{ musica.artista }}.</p>
+    <p>Essa ação não pode ser desfeita.</p>
+
+    <form method="post" class="form-actions center">
+        {% csrf_token %}
+        <a href="{% url 'catalogo:lista' %}" class="secondary-button">Cancelar</a>
+        <button type="submit" class="danger-button">Sim, excluir</button>
+    </form>
+</section>
+{% endblock %}

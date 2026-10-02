@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Meu catálogo • TuneShelf{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div>
+        <span class="eyebrow">SEU ESPAÇO MUSICAL</span>
+        <h1>Olá, {{ user.username }}! 👋</h1>
+        <p>Organize as músicas que você já ouviu, quer ouvir ou está ouvindo.</p>
+    </div>
+    <a class="primary-button" href="{% url 'catalogo:adicionar' %}">+ Adicionar música</a>
+</section>
+
+{% if musicas %}
+    <div class="stats">
+        <div class="stat-card">
+            <strong>{{ musicas|length }}</strong>
+            <span>itens no catálogo</span>
+        </div>
+    </div>
+
+    <div class="music-grid">
+        {% for musica in musicas %}
+            <article class="music-card">
+                <div class="music-cover">♫</div>
+                <div class="music-info">
+                    <span class="status">{{ musica.get_status_display }}</span>
+                    <h2>{{ musica.titulo }}</h2>
+                    <p class="artist">{{ musica.artista }}</p>
+
+                    {% if musica.album %}
+                        <p class="album">Álbum: {{ musica.album }}</p>
+                    {% endif %}
+
+                    {% if musica.descricao %}
+                        <p class="description">{{ musica.descricao }}</p>
+                    {% endif %}
+
+                    {% if musica.nota %}
+                        <p class="rating">Nota: {{ musica.nota }}/5 ⭐</p>
+                    {% endif %}
+
+                    <p class="date">Adicionada em {{ musica.data_adicao|date:"d/m/Y H:i" }}</p>
+
+                    <div class="card-actions">
+                        <a href="{% url 'catalogo:editar' musica.pk %}" class="secondary-button">Editar</a>
+                        <a href="{% url 'catalogo:excluir' musica.pk %}" class="danger-button">Excluir</a>
+                    </div>
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+{% else %}
+    <section class="empty-state">
+        <div class="empty-icon">🎶</div>
+        <h2>Seu catálogo ainda está vazio</h2>
+        <p>Adicione sua primeira música e comece a organizar seus favoritos.</p>
+        <a class="primary-button" href="{% url 'catalogo:adicionar' %}">Adicionar primeira música</a>
+    </section>
+{% endif %}
+{% endblock %}
